@@ -34,14 +34,8 @@ private class YouTubePlayerImpl(
   private val mainThread: Handler = Handler(Looper.getMainLooper())
   val listeners = mutableSetOf<YouTubePlayerListener>()
   
-  private val youtubePlayerBridge: YouTubePlayerBridge = YouTubePlayerBridge(this)
-
   override fun setQuality(playbackQuality: String) {
       webView.invoke("setPlaybackQuality", playbackQuality)
-  }
-
-  override fun getAvailableQualities(): String {
-      return youtubePlayerBridge.getVideoQualities()
   }
   
   override fun hideVideoTitle() {
@@ -131,6 +125,10 @@ internal class WebViewYouTubePlayer constructor(
   internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
     youTubePlayerInitListener = initListener
     initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
+  }
+
+  override fun getAvailableQualities(): String {
+    return youtubePlayerBridge.getVideoQualities()
   }
 
   // create new set to avoid concurrent modifications
