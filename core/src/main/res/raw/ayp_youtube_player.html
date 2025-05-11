@@ -2,8 +2,9 @@
 <html>
   <style type="text/css">
         html, body {
-            height: 100%;
-            width: 100%;
+            height: 1000%;
+            width: 1000%;
+            transform: scale(0.1);
             margin: 0;
             padding: 0;
             background-color: #000000;
@@ -33,6 +34,7 @@
     var CUED = "CUED";
 
     var YouTubePlayerBridge = window.YouTubePlayerBridge;
+    var YouTubePlayerCallbacks = window.YouTubePlayerCallbacks;
     var player;
 
     var timerId;
@@ -185,6 +187,11 @@
 
     function setShuffle(shuffle) {
       player.setShuffle(shuffle);
+    }
+
+    function getMuteValue(requestId) {
+      var isMuted = player.isMuted();
+      YouTubePlayerCallbacks.sendBooleanValue(requestId, isMuted);
     }
 
   </script>

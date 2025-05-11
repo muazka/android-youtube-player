@@ -6,6 +6,15 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
  * Use this interface to control the playback of YouTube videos and to listen to their events.
  */
 interface YouTubePlayer {
+  
+  fun setQuality(playbackQuality: String)
+
+  fun getAvailableQualities(): String
+
+  fun hideVideoTitle()
+  fun hideTabletPopup()
+  fun hideCaption()
+  
   /**
    * Loads and automatically plays the video.
    * @param videoId id of the video
@@ -38,6 +47,9 @@ interface YouTubePlayer {
 
   fun mute()
   fun unMute()
+
+  /** Returns true if the player is muted, false otherwise. */
+  fun isMutedAsync(callback: BooleanProvider)
 
   /**
    * @param volumePercent Integer between 0 and 100
