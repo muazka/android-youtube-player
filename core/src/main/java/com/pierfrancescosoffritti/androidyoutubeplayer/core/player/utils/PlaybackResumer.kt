@@ -13,6 +13,7 @@ internal class PlaybackResumer : AbstractYouTubePlayerListener() {
   private var canLoad = false
   private var isPlaying = false
   private var error: PlayerConstants.PlayerError? = null
+  private var availableQualities: String? = null
 
   private var currentVideoId: String? = null
   private var currentSecond: Float = 0f
