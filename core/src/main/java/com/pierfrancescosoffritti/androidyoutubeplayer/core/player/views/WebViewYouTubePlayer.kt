@@ -29,13 +29,18 @@ import java.util.*
 
 private class YouTubePlayerImpl(
   private val webView: WebView,
-  private val callbacks: YouTubePlayerCallbacks
+  private val callbacks: YouTubePlayerCallbacks,
+  private val bridge: YouTubePlayerBridge
 ) : YouTubePlayer {
   private val mainThread: Handler = Handler(Looper.getMainLooper())
   val listeners = mutableSetOf<YouTubePlayerListener>()
   
   override fun setQuality(playbackQuality: String) {
       webView.invoke("setPlaybackQuality", playbackQuality)
+  }
+
+  override fun getAvailableQualities(): String {
+      return bridge.getVideoQualities()
   }
   
   override fun hideVideoTitle() {
@@ -111,24 +116,20 @@ internal class WebViewYouTubePlayer constructor(
 
   /** Constructor used by tools */
   constructor(context: Context) : this(context, FakeWebViewYouTubeListener)
+  private val youTubePlayerBridge = YouTubePlayerBridge(this)
 
   private val youTubePlayerCallbacks = YouTubePlayerCallbacks()
-  private val _youTubePlayer = YouTubePlayerImpl(this, youTubePlayerCallbacks)
+  private val _youTubePlayer = YouTubePlayerImpl(this, youTubePlayerCallbacks, youTubePlayerBridge)
   internal val youtubePlayer: YouTubePlayer get() = _youTubePlayer
 
   private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
 
   internal var isBackgroundPlaybackEnabled = false
 
-  private val youTubePlayerBridge = YouTubePlayerBridge(this)
 
   internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
     youTubePlayerInitListener = initListener
     initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
-  }
-
-  override fun getAvailableQualities(): String {
-    return youtubePlayerBridge.getVideoQualities()
   }
 
   // create new set to avoid concurrent modifications
