@@ -33,6 +33,8 @@ private class YouTubePlayerImpl(
 ) : YouTubePlayer {
   private val mainThread: Handler = Handler(Looper.getMainLooper())
   val listeners = mutableSetOf<YouTubePlayerListener>()
+  
+  private val youtubePlayerBridge: YouTubePlayerBridge = YouTubePlayerBridge(this)
 
   override fun setQuality(playbackQuality: String) {
       webView.invoke("setPlaybackQuality", playbackQuality)
