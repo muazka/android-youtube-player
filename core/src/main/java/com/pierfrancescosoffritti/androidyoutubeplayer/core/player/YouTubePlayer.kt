@@ -6,6 +6,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
  * Use this interface to control the playback of YouTube videos and to listen to their events.
  */
 interface YouTubePlayer {
+  
+  fun setQuality(playbackQuality: String)
+
+  fun getAvailableQualities(): String
+  
   /**
    * Loads and automatically plays the video.
    * @param videoId id of the video
