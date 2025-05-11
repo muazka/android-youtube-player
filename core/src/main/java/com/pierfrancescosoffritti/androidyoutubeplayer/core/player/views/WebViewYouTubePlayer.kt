@@ -38,6 +38,10 @@ private class YouTubePlayerImpl(
       mainThreadHandler.post { loadUrl("javascript:setPlaybackQuality('$playbackQuality')") }
   }
 
+  override fun getAvailableQualities(): String {
+      return youtubePlayerBridge.getVideoQualities()
+  }
+
   override fun hideVideoTitle(){
       mainThreadHandler.post { loadUrl("javascript:hideVideoTitle()") }
   }
