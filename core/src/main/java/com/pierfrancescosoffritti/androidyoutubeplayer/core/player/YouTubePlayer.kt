@@ -10,6 +10,10 @@ interface YouTubePlayer {
   fun setQuality(playbackQuality: String)
 
   fun getAvailableQualities(): String
+
+  fun hideVideoTitle()
+  fun hideTabletPopup()
+  fun hideCaption()
   
   /**
    * Loads and automatically plays the video.
