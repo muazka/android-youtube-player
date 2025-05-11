@@ -48,11 +48,21 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   }
 
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
+  private var qualityOptions: String = "null" 
 
   interface YouTubePlayerBridgeCallbacks {
     val listeners: Collection<YouTubePlayerListener>
     fun getInstance(): YouTubePlayer
     fun onYouTubeIFrameAPIReady()
+  }
+
+  @JavascriptInterface
+  fun sendVideoQualities(qualities: String) {
+      qualityOptions = qualities
+  }
+
+  fun getVideoQualities():String {
+       return qualityOptions
   }
 
   @JavascriptInterface
