@@ -35,7 +35,7 @@ private class YouTubePlayerImpl(
   val listeners = mutableSetOf<YouTubePlayerListener>()
 
   override fun setQuality(playbackQuality: String) {
-      mainThreadHandler.post { loadUrl("javascript:setPlaybackQuality('$playbackQuality')") }
+      mainThread.post { loadUrl("javascript:setPlaybackQuality('$playbackQuality')") }
   }
 
   override fun getAvailableQualities(): String {
@@ -43,15 +43,15 @@ private class YouTubePlayerImpl(
   }
 
   override fun hideVideoTitle(){
-      mainThreadHandler.post { loadUrl("javascript:hideVideoTitle()") }
+      mainThread.post { loadUrl("javascript:hideVideoTitle()") }
   }
 
   override fun hideTabletPopup(){
-      mainThreadHandler.post { loadUrl("javascript:hideTabletPopup()") }
+      mainThread.post { loadUrl("javascript:hideTabletPopup()") }
   }
 
   override fun hideCaption(){
-      mainThreadHandler.post { loadUrl("javascript:hideCaption()") }
+      mainThread.post { loadUrl("javascript:hideCaption()") }
   }
 
   override fun loadVideo(videoId: String, startSeconds: Float) = webView.invoke("loadVideo", videoId, startSeconds)
