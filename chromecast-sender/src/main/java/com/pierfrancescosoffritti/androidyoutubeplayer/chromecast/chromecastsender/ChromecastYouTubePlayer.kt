@@ -19,6 +19,26 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
   private val inputMessageDispatcher = ChromecastYouTubeMessageDispatcher(YouTubePlayerBridge(this))
   private val youTubePlayerListeners = HashSet<YouTubePlayerListener>()
 
+  override fun setQuality(playbackQuality: String) {
+      return
+  }
+  
+  override fun getAvailableQualities(): String {
+      return ""
+  }
+
+  override fun hideVideoTitle(){
+      
+  }
+
+  override fun hideTabletPopup(){
+      
+  }
+
+  override fun hideCaption(){
+      
+  }
+
   internal fun initialize(initListener: (YouTubePlayer) -> Unit) {
     youTubePlayerListeners.clear()
 
